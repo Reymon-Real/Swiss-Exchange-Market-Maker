@@ -1,0 +1,12 @@
+{	
+	"Exchange": "TSEJ",   // Exchange
+	"symbol": "8368",     // Symbol
+	"type":   "limit",    // Order Type
+	"bid_size": 100,      // Number of positions in bid
+	"ask_size": 100,      // Number of positions in ask
+	"inventory": 120,     // Max Number of positions for symbol
+	"spread_min": 1,      // Spread in Pips
+	"spread_max": 1,      // Spread in Pips
+	"volatility": 0.02,   // Volatility
+	"audit_log": 00       // Generate Audit Report
+}

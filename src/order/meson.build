@@ -9,14 +9,14 @@
 # *** C files ***
 # ***************
 
-C_FILES_ORDER = files(
-					'order.c'
-				)
+#C_FILES_ORDER = files(
+#					''
+#				)
 
 # *****************
 # *** Cpp files ***
 # *****************
 
 CPP_FILES_ORDER = files(
-						'main.cpp'
+						'order.cpp'
 					)

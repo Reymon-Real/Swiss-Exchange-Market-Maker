@@ -1,6 +1,6 @@
       *****************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. SXMM_SPREAD_MAX.
+       PROGRAM-ID. SXMM_VOLATILITY.
        AUTHOR. Dracma Capital.
        DATE-WRITTEN.  April 04 from 2026.
        DATE-COMPILED. April 17 from 2026.

@@ -15,5 +15,5 @@ COBOL_FILES_RISK = files(
 						'inventory.cbl',
 						'spread_max.cbl',
 						'spread_min.cbl',
-						'volality.cbl'
+						'volatility.cbl'
 					)

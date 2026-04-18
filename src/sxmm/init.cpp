@@ -1,8 +1,9 @@
-// *********************************
-// *** Author: Dracma Capital    ***
-// *** Date:   April 4 from 2026 ***
-// *** Update: April 4 from 2026 ***
-// *********************************
+// **********************************
+// *** Author: Dracma Capital     ***
+// *** Date:   April 15 from 2026 ***
+// *** Update: April 15 from 2026 ***
+// *** License: AGPL-3-or-later   ***
+// **********************************
 
 // ******************************
 // *** Standard C++ Libraries ***
@@ -14,9 +15,7 @@
 // *** Dracma Libraries ***
 // ************************
 
-extern "C" {
-
-}
+#include <Dracma/sxmm.h>
 
 // *************************************
 // *** Interactive Brokers Libraries ***
@@ -28,8 +27,6 @@ extern "C" {
 // *** Entry Point ***
 // *******************
 
-int main(void) {
-
-
-	return EXIT_SUCCESS;
+void SXMM_INIT(int argc, char** argv) {
+	
 }

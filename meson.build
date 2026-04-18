@@ -1,41 +1,18 @@
 project(
 	'Swiss Exchange Market Maker',
-	'c', 'cpp',
+	'cpp',
 	version: '1.0.0',
 	meson_version: '>=1.9.0',
 	license: 'AGPL-3-or-later'
 )
 
 # ***************************
-# *** Important Variables ***
+# *** Install Directories ***
 # ***************************
 
-env = environment()
-
-# *********************************
-# *** Set Environment Variables ***
-# *********************************
-
-env.set('C_INCLUDE_PATH',     'include')
-env.set('CPLUS_INCLUDE_PATH', 'include')
-
-env.set('SYSLIB', 'include')
-env.set('COBOPT', '-q64')
-env.set('COBCPYEXT', '.cpy')
-env.set('COBLSTDIR', 'build/list')
-
-env.set('LIBRARY_PATH', 'build')
-
-# ************************************
-# *** Append Environment Variables ***
-# ************************************
-
-
-env.append('CPLUS_INCLUDE_PATH', '/usr/local/include/IBKR/TwsSocketClient/protobufUnix', separator: ':')
-
-env.append('COBCPYEXT', '.cbl', '.cob', separator: ',')
-
-env.append('LIBRARY_PATH', '/usr/local/lib', '/opt/ibm/cobol/rte/lib', separator: ':')
+install_dir_bin = '/usr/local/bin'
+install_dir_lib = '/usr/local/lib'
+install_dir_inc = '/usr/local/include'
 
 # *************
 # *** Tools ***
@@ -51,13 +28,14 @@ COB = find_program('cob2', required: true)
 
 c_args   = [ '-Wall', '-Wextra', '-Werror' ]
 cpp_args = [ '-Wall', '-Wextra', '-Werror' ]
-cob_args = [ ]
+cob_args = [ '-q64', '-I../include/cobol' ]
 
 # **************************
 # *** Search Directories ***
 # **************************
 
-inc = include_directories('include', '/usr/local/include/IBKR/TwsSocketClient/protobufUnix')
+inc_search  = include_directories('include', install_dir_inc + '/IBKR/TwsSocketClient/protobufUnix')
+link_search = include_directories(install_dir_lib)
 
 # ********************
 # *** Search Files ***
@@ -66,28 +44,75 @@ inc = include_directories('include', '/usr/local/include/IBKR/TwsSocketClient/pr
 subdir('src/order')
 subdir('src/report')
 subdir('src/risk')
+subdir('src/sxmm')
 
 # *************************
 # *** Custom Generators ***
 # *************************
 
-COB_COMPILER = generator(COB, arguments: [cob_args, '-c', '@INPUT@', '-o', '@OUTPUT@'], output: '@PLAINNAME@.o')
+COB_COMPILER = generator(COB, output: '@PLAINNAME@.o', arguments: [cob_args, '-c', '@INPUT@', '-o', '@OUTPUT@'])
 
 # ************************
 # *** Create Libraries ***
 # ************************
 
-target_file_library_sxmm = custom_target('libsxmm', output: 'libsxmm.so', input: COB_COMPILER.process(COBOL_FILES_RISK, COBOL_FILES_REPORT), command: [COB, cob_args, '-dso', '-o', '@OUTPUT@', '@INPUT@'], install: true, install_dir: '/usr/local/lib', build_by_default: true)
+target_file_library_sxmm = custom_target(
+								'libsxmm',
+
+								output: 'libsxmm.so',
+							
+								input: COB_COMPILER.process(COBOL_FILES_RISK, COBOL_FILES_REPORT),
+
+								command: [ COB, cob_args, '-dso', '-o', '@OUTPUT@', '@INPUT@' ],
+
+								install: true,
+								install_dir: install_dir_lib,
+
+								build_by_default: true
+							)
 
 # ********************
 # *** Dependencies ***
 # ********************
 
-binary_file_library_tws  = declare_dependency(include_directories: include_directories('/usr/local/lib'), link_args: ['-L/usr/local/lib', '-lTwsSocketClient'])
-binary_file_library_sxmm = declare_dependency(include_directories: include_directories('/usr/local/lib'), link_args: ['-L/usr/local/lib', '-lsxmm'])
+binary_file_library_tws  = declare_dependency(
+								include_directories: link_search,
+								link_args: [
+									'-L/usr/local/lib',
+									'-Lbuild',
+									'-lTwsSocketClient'
+								]
+							)
+
+
+binary_file_library_sxmm = declare_dependency(
+								include_directories: link_search,
+								link_args: [
+									'-L/usr/local/lib',
+									'-Lbuild',
+									'-lsxmm'
+								]
+							)
 
 # *******************
 # *** Executables ***
 # *******************
 
-binary_file_executable_sxmm = executable('sxmm', [ C_FILES_ORDER, CPP_FILES_ORDER ], dependencies: [ binary_file_library_tws, binary_file_library_sxmm ], build_rpath: 'lib', build_by_default: true)
+binary_file_executable_sxmm = executable(
+								'sxmm',
+	
+								[ CPP_FILES_ORDER, CPP_FILES_SXMM],
+	
+								include_directories: inc_search,
+	
+								dependencies: [
+									binary_file_library_tws,
+									binary_file_library_sxmm
+								],
+
+								install: true,
+								install_dir: install_dir_bin,
+	
+								build_rpath: 'build:lib:' + install_dir_lib,
+								build_by_default: true
+							)
