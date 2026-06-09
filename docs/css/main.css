@@ -1,0 +1,108 @@
+/**
+ * 
+ * Autor: PZH Gesellschaft
+ * Datum: 4. Jun. 2026
+ * Aktua: 9. Jun. 2026
+ * Lizenz: AGPL-3-or-later
+ * 
+ * */
+
+/* Body  */
+
+body {
+
+	background: #C68346;
+
+}
+
+/* Header  */
+
+#main-header {
+
+	color: black;
+	border-style: solid;
+	border-color: black;
+	border-radius: 5px;
+	border-width: 1px;
+
+	margin: 10px;
+	margin-block: 10px;
+
+}
+
+#title {
+
+	color: black;
+
+}
+
+/* Sections  */
+
+.sections {
+
+	color: black;
+	border-style: solid;
+	border-color: black;
+	border-radius: 5px;
+	border-width: 1px;
+	
+	margin: 10px;
+	margin-block: 10px;
+
+}
+
+/* Clases  */
+
+.formules {
+
+	color: black;
+	border-style: solid;
+	border-color: black;
+	border-radius: 5px;
+	border-width: 1px;
+
+	margin: 10px;
+	margin-block: 10px;
+
+}
+
+/* Footer  */
+
+#footer {
+
+	color: black;
+	background: gray;
+	border-style: solid;
+	border-color: black;
+	border-radius: 5px;
+	border-width: 1px;
+
+	margin: 10px;
+	margin-block: 10px;
+}
+
+footer p {
+
+	color: black;
+	border-style: solid;
+	border-color: black;
+	border-radius: 5px;
+	border-width: 1px;
+
+}
+
+#footer-legal {
+	
+	color: black;
+	border-style: solid;
+	border-color: gray;
+	border-radius: 5px;
+	border-width: 1px;
+
+}
+
+#mail {
+
+	color: black;
+
+}

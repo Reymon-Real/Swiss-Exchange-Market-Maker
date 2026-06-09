@@ -1,18 +1,51 @@
 project(
 	'Swiss Exchange Market Maker',
-	'cpp',
+	
+	['c', 'cpp'],
+
 	version: '1.0.0',
 	meson_version: '>=1.9.0',
-	license: 'AGPL-3-or-later'
+	license: 'AGPL-3-or-later',
+
+	default_options: [
+		'c_std=c99',
+		'cpp_std=c++20',
+		'warning_level=3',
+		'buildtype=debug',
+		'strip=true',
+	]
+)
+
+# *************************
+# *** Porject Arguments ***
+# *************************
+
+add_project_link_arguments(
+
+#	'-L/ust/local/lib',
+	'-lm',
+	'-lTwsSocketClient',
+
+	language: [ 'c', 'cpp' ]
 )
 
 # ***************************
 # *** Install Directories ***
 # ***************************
 
-install_dir_bin = '/usr/local/bin'
-install_dir_lib = '/usr/local/lib'
-install_dir_inc = '/usr/local/include'
+install_dir_bin = 'libsxmm-dev/usr/bin'
+install_dir_lib = 'libsxmm-dev/usr/lib'
+install_dir_inc = 'libsxmm-dev/usr/include'
+
+# ********************
+# *** Dependencies ***
+# ********************
+
+json = dependency('yyjson')
+
+dependencies = [
+	json
+]
 
 # *************
 # *** Tools ***
@@ -20,99 +53,67 @@ install_dir_inc = '/usr/local/include'
 
 CC  = find_program('cc',   required: true)
 CXX = find_program('c++',  required: true)
-COB = find_program('cob2', required: true)
 
 # *******************
 # *** Tools Flags ***
 # *******************
 
-c_args   = [ '-Wall', '-Wextra', '-Werror' ]
-cpp_args = [ '-Wall', '-Wextra', '-Werror' ]
-cob_args = [ '-q64', '-I../include/cobol' ]
-
 # **************************
 # *** Search Directories ***
 # **************************
 
-inc_search  = include_directories('include', install_dir_inc + '/IBKR/TwsSocketClient/protobufUnix')
-link_search = include_directories(install_dir_lib)
+search_inc = include_directories(
+	'include',
+	'/usr/local/include/IBKR/TwsSocketClient/protobufUnix'
+)
 
 # ********************
 # *** Search Files ***
 # ********************
 
-subdir('src/order')
-subdir('src/report')
+subdir('src/utils')
 subdir('src/risk')
+subdir('src/report')
+subdir('src/websocket')
 subdir('src/sxmm')
 
-# *************************
-# *** Custom Generators ***
-# *************************
+# *****************
+# *** Libraries ***
+# *****************
 
-COB_COMPILER = generator(COB, output: '@PLAINNAME@.o', arguments: [cob_args, '-c', '@INPUT@', '-o', '@OUTPUT@'])
-
-# ************************
-# *** Create Libraries ***
-# ************************
-
-target_file_library_sxmm = custom_target(
-								'libsxmm',
-
-								output: 'libsxmm.so',
-							
-								input: COB_COMPILER.process(COBOL_FILES_RISK, COBOL_FILES_REPORT),
-
-								command: [ COB, cob_args, '-dso', '-o', '@OUTPUT@', '@INPUT@' ],
-
-								install: true,
-								install_dir: install_dir_lib,
-
-								build_by_default: true
-							)
-
-# ********************
-# *** Dependencies ***
-# ********************
-
-binary_file_library_tws  = declare_dependency(
-								include_directories: link_search,
-								link_args: [
-									'-L/usr/local/lib',
-									'-Lbuild',
-									'-lTwsSocketClient'
-								]
-							)
-
-
-binary_file_library_sxmm = declare_dependency(
-								include_directories: link_search,
-								link_args: [
-									'-L/usr/local/lib',
-									'-Lbuild',
-									'-lsxmm'
-								]
-							)
+libraries = [
+	libsxmm_risk,
+	libsxmm_utils,
+	libsxmm_report,
+	libsxmm_websocket,
+]
 
 # *******************
 # *** Executables ***
 # *******************
 
-binary_file_executable_sxmm = executable(
-								'sxmm',
+BINARY_SXMM = executable(
+	'sxmm',
 	
-								[ CPP_FILES_ORDER, CPP_FILES_SXMM],
-	
-								include_directories: inc_search,
-	
-								dependencies: [
-									binary_file_library_tws,
-									binary_file_library_sxmm
-								],
+	SOURCE_FILES_SXMM,
 
-								install: true,
-								install_dir: install_dir_bin,
+	link_with: libraries,
+
+	dependencies: dependencies,
 	
-								build_rpath: 'build:lib:' + install_dir_lib,
-								build_by_default: true
-							)
+	include_directories: search_inc
+)
+
+# ***********************
+# *** Install Headers ***
+# ***********************
+
+install_headers(
+	'include/pzh/sxmm/Client.hpp',
+	'include/pzh/sxmm/Report.h',
+	'include/pzh/sxmm/Order.h',
+	'include/pzh/sxmm/Risk.h',
+	'include/pzh/sxmm.hpp',
+
+	install_dir: 'libsxmm-dev/usr/include/pzh/sxmm'
+)

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title> Swiss Exchange Market Maker </title>
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+</head>
+
+<body>
+
+	<!-- Header -->
+
+	<header id="main-header">
+	
+		<h1 id="title"> Swiss Exchange Market Maker </h1>
+		
+		<p>
+			Bot de market making que cumple con la regulación de FINMA <br>
+			Provee liquidez un 90% del tiempo de la sesión <br>
+			Solo es compatible con TwsSocketClient de Interactive Brokers <br>
+			
+			El bot puede operar en todos los mercados a los que IBKR ofrece acceso,
+			el nombre es solo un reflejo de su diseño original que quedó descartado
+		
+		</p>
+	
+	</header>
+
+	<!-- Sections -->
+
+	<section class="sections">
+		
+		<article id="algorithm">
+			
+			<h2> Algoritmos </h2>
+
+			<p>
+				Este bot usa el algoritmo de Avellaneda-Stoikov de 2018 <br>
+				el micro-price para calcular el precio justo <br>
+				y un algoritmo propio para calcular la aversión al riesgo <br>
+				A continuación la lista de algoritmos que usa
+			</p>
+
+			<ol>
+				<li value="1">
+					Micro-price
+				</li>
+				
+				<li>
+					Avellaneda-Stoikov 2018
+				</li>
+
+				<li>
+					PZH Limit of Risk Aversion (se explica a profundidad más adelante)
+				</li>
+			</ol>
+
+		</article>
+
+	</section>
+
+	<section class="sections">
+		
+		<article id="micro-price">
+
+			<h2> Micro-Price </h2>
+			
+			El micro-precio es el algoritmo para estimar el mejor precio en compra y venta para los quotes de las ordenes. <br>
+
+			Las variables del algoritmo son las siguientes
+
+			<ol>
+				
+				<li>
+					Imbalance discretizado en n buckets está denominado como I		
+				</li>
+
+				<li>
+					Spread bid-ask discretizado en m valores en ticks está denominado como S
+				</li>
+
+				<li>
+					Numéros de estados del imbalance denominado como n 
+				</li>
+
+				<li>
+					Numéros de estados del spread denominado como m
+				</li>
+
+				<li>
+					Vector de posibles cambios del mid-price denominado como K
+				</li>
+
+			</ol>
+
+			<br>
+
+			<section class="formules">
+				
+				<h3> Imbalance </h3>
+
+				<article>
+					
+					Qb -> Volumen total en el mejor bid (bid size) <br>
+					Qa -> Volumen total en el mejor ask (ask size) <br>
+
+					Fórmula <br>
+
+					I = Qb / (Qb + Qa)
+
+				</article>
+
+			</section>
+
+			<section class="formules">
+
+				<h3> Spread </h3>
+
+				<article>
+					
+					Pa -> Mejor precio de venta (ask price) <br>
+					Pb -> Mejor precio de compra (bid price) <br>
+
+					Fórmula <br>
+
+					S = Pa - Pb
+
+				</article>
+				
+			</section>
+
+
+		</article>
+
+	</section>
+
+	<section class="sections">
+
+		<article id="Avellaneda-Stoikov">
+
+			<h2> Avellaneda-Stoikov </h2>
+
+			El algoritmo de avellaneda-stoikov es un algoritmo de market making <br>
+			desarrollado por Sasha Stoikov y Marco Marcelo Avellaneda. <br>
+
+			Swiss Exchange Market Maker (SXMM) usa la versión de 2018 de este algoritmo. <br>
+			
+		</article>
+
+	</section>
+
+	<!-- Footer -->
+
+	<footer id="footer">
+
+		<p id="footer-legal">
+			
+			Aviso Legal <br> <br>
+
+				Este bot no es oficial y tampoco está relacionado de alguna <br>
+				manera con interactive brokers más allá de usar su API
+
+		</p>
+
+		<p>
+			Contactanos
+			<a id="mail" href="mailto:kontakt@pzhgesellschaft.ch">  kontakt@pzhgesellschaft.ch  </a>
+		</p>
+
+	</footer>
+
+</body>
+</html>

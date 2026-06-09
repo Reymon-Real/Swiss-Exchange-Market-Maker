@@ -1,5 +1,5 @@
 // **********************************
-// *** Author: Dracma Capital     ***
+// *** Author: Enosis Technology  ***
 // *** Date:   April 15 from 2026 ***
 // *** Update: April 15 from 2026 ***
 // *** License: AGPL-3-or-later   ***
@@ -11,11 +11,11 @@
 
 #include <cstdlib>
 
-// ************************
-// *** Dracma Libraries ***
-// ************************
+// ***********************************
+// *** Enosis Technology Libraries ***
+// ***********************************
 
-#include <Dracma/sxmm.h>
+#include <pzh/sxmm.hpp>
 
 // *************************************
 // *** Interactive Brokers Libraries ***
@@ -27,6 +27,6 @@
 // *** Entry Point ***
 // *******************
 
-void SXMM_FREE(int argc, char** argv) {
+void sxmm_free() {
 
 }

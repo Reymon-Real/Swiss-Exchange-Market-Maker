@@ -1,5 +1,5 @@
 // **********************************
-// *** Author: Dracma Capital     ***
+// *** Author: Enosis Technology  ***
 // *** Date:   April 15 from 2026 ***
 // *** Update: April 15 from 2026 ***
 // *** License: AGPL-3-or-later   ***
@@ -9,24 +9,30 @@
 // *** Standard C++ Libraries ***
 // ******************************
 
+#include <cstdio>
 #include <cstdlib>
+#include <cstring>
 
-// ************************
-// *** Dracma Libraries ***
-// ************************
+// ***********************************
+// *** Enosis Technology Libraries ***
+// ***********************************
 
-#include <Dracma/sxmm.h>
+#include <pzh/sxmm.hpp>
 
-// *************************************
-// *** Interactive Brokers Libraries ***
-// *************************************
+// ***************************
+// *** Utilities Libraries ***
+// ***************************
 
-#include <IBKR/TwsSocketClient/EWrapper.h>
+#include <yyjson.h>
 
 // *******************
 // *** Entry Point ***
 // *******************
 
-void SXMM_INIT(int argc, char** argv) {
-	
+void sxmm_init() {
+
+	// **********************
+	// *** Get Order Info ***
+	// **********************
+
 }

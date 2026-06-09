@@ -1,17 +1,10 @@
 # ********************************
 # *** Author: PZH Gesellschaft ***
-# *** Date:   15. April. 2026  ***
+# *** Date:   14. April. 2026  ***
 # *** Update: 14. Mai. 2026    ***
 # *** License: AGPL-3-or-later ***
 # ********************************
 
-# *************
-# *** Files ***
-# *************
-
-SOURCE_FILES_SXMM = files(
-	'main.cpp',
-	'init.cpp',
-	'loop.cpp',
-	'free.cpp'
+SOURCE_FILES_RISK_INVENTORY = files(
+	'inventory.c'
 )

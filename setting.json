@@ -1,12 +1,17 @@
 {	
-	"Exchange": "TSEJ",   // Exchange
-	"symbol": "8368",     // Symbol
-	"type":   "limit",    // Order Type
-	"bid_size": 100,      // Number of positions in bid
-	"ask_size": 100,      // Number of positions in ask
-	"inventory": 120,     // Max Number of positions for symbol
-	"spread_min": 1,      // Spread in Pips
-	"spread_max": 1,      // Spread in Pips
-	"volatility": 0.02,   // Volatility
-	"audit_log": 00       // Generate Audit Report
+	"host": "127.0.0.1", // Host of the server
+	"port": 7497,        // Port of set on IBKR
+	"userId": 0,         // Id of the user for operate
+	"extraAuth": false,  // Extra Authentication for IBKR
+
+	"symbol": "GLKBN", // Symbol name
+	"sectype": "STK",  // Sector Type (View Docs)
+	"exchange": "EBS", // The exchange on which the security is listed
+	"currency": "CHF", // Currency in which the instrument is priced
+	
+	"bid": 1, 		   // Number of orders in bid
+	"ask": 1,		   // Number of orders in ask
+	"size": 100,	   // Size of the orders
+	"minimum": 10,     // Number of minimun positions
+	"inventory": 1000  // Number of max positions
 }

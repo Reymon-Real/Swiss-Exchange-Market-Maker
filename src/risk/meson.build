@@ -1,19 +1,27 @@
 # ********************************
-# *** Author: Dracma Capital   ***
-# *** Date:   03/04/2026       ***
-# *** Update: 03/04/2026       ***
+# *** Author: PZH Gesellschaft ***
+# *** Date:   03. April. 2026  ***
+# *** Update: 14. Mai. 2026    ***
 # *** License: AGPL-3-or-later ***
 # ********************************
 
-# *************
-# *** Files ***
-# *************
+subdir('inventory')
+subdir('microprice')
+subdir('spread')
+subdir('stoikov')
 
-COBOL_FILES_RISK = files(
-						'ask_size.cbl',
-						'bid_size.cbl',
-						'inventory.cbl',
-						'spread_max.cbl',
-						'spread_min.cbl',
-						'volatility.cbl'
-					)
+# ***************
+# *** Library ***
+# ***************
+
+libsxmm_risk = static_library(
+	'sxmm_risk',
+
+	SOURCE_FILES_RISK_INVENTORY,
+	SOURCE_FILES_RISK_MICROPRICE,
+	SOURCE_FILES_RISK_SPREAD,
+	SOURCE_FILES_RISK_STOIKOV,
+
+	dependencies: dependencies,
+	include_directories: search_inc
+)
