@@ -4,4 +4,8 @@
 
 build/
 build_*
-libsxmm-dev/usr
+
+ibkr
+
+subprojects
+libsxmm-dev

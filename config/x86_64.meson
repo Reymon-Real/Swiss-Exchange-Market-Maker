@@ -1,0 +1,22 @@
+[constants]
+
+arch = 'x86_64-linux-gnu-'
+
+[binaries]
+
+c     = arch + 'gcc'
+cpp   = arch + 'g++'
+strip = arch + 'strip'
+
+[cmake]
+
+CMAKE_C_COMPILER   = arch + 'gcc'
+CMAKE_CXX_COMPILER = arch + 'g++'
+
+[host_machine]
+
+system = 'linux'
+kernel = 'linux'
+cpu_family = 'x86_64'
+cpu = 'x86_64'
+endian = 'little'

@@ -47,4 +47,4 @@ Just make sure you keep the `IBKR/TwsSocketClient` structure so you don’t have
 ## License
 
 The source code for this software is licensed under the AGPL-3-or-later licence.
-This does not apply to proprietary tools or files belonging to IBKR and IBM.
+This does not apply to proprietary tools or files belonging to IBKR.

@@ -21,7 +21,7 @@
 // *** Entry Point ***
 // *******************
 
-int main() {
+int main(void) {
 
 	// *****************
 	// *** Variables ***
@@ -69,14 +69,10 @@ int main() {
 	// ************
 	// *** Free ***
 	// ************
-	
-	local_free:
 
 	// *******************
 	// *** End Program ***
 	// *******************
-
-	end:
 
 		return EXIT_SUCCESS;
 }

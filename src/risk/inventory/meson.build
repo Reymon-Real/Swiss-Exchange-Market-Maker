@@ -6,5 +6,5 @@
 # ********************************
 
 SOURCE_FILES_RISK_INVENTORY = files(
-	'inventory.c'
+	'inventory.cpp'
 )

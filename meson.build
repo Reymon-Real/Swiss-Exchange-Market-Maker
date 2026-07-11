@@ -1,15 +1,22 @@
+# *******************************
+# *** Autor: PZH Gesellschaft ***
+# *** Datum: 01. Juli. 2026   ***
+# *** Aktua: 07. Juli. 2026   ***
+# *** Lizenz: AGPL-3-or-later ***
+# *******************************
+
 project(
 	'Swiss Exchange Market Maker',
 	
-	['c', 'cpp'],
+	'cpp',
 
-	version: '1.0.0',
-	meson_version: '>=1.9.0',
+	version: '0.1.0',
+	meson_version: '>=1.11.0',
 	license: 'AGPL-3-or-later',
 
 	default_options: [
-		'c_std=c99',
-		'cpp_std=c++20',
+		'c_std=c23',
+		'cpp_std=c++26',
 		'warning_level=3',
 		'buildtype=debug',
 		'strip=true',
@@ -17,54 +24,45 @@ project(
 )
 
 # *************************
-# *** Porject Arguments ***
+# *** Project Arguments ***
 # *************************
 
-add_project_link_arguments(
+add_project_arguments(
+	'-Wno-switch',
+	'-Wno-unused-parameter',
+#	'-Wno-unused-function',
 
-#	'-L/ust/local/lib',
-	'-lm',
-	'-lTwsSocketClient',
-
-	language: [ 'c', 'cpp' ]
+	language: 'cpp'
 )
 
-# ***************************
-# *** Install Directories ***
-# ***************************
+add_project_link_arguments(
+	'-lm',
+	'-pthread',
+	'-lTwsSocketClient',
 
-install_dir_bin = 'libsxmm-dev/usr/bin'
-install_dir_lib = 'libsxmm-dev/usr/lib'
-install_dir_inc = 'libsxmm-dev/usr/include'
+	language: 'cpp'
+)
 
 # ********************
 # *** Dependencies ***
 # ********************
 
-json = dependency('yyjson')
+json   = dependency('yyjson')
+sqlite = dependency('sqlite3')
 
 dependencies = [
-	json
+	json,
+	sqlite
 ]
-
-# *************
-# *** Tools ***
-# *************
-
-CC  = find_program('cc',   required: true)
-CXX = find_program('c++',  required: true)
-
-# *******************
-# *** Tools Flags ***
-# *******************
 
 # **************************
 # *** Search Directories ***
 # **************************
 
-search_inc = include_directories(
+inc = include_directories(
 	'include',
-	'/usr/local/include/IBKR/TwsSocketClient/protobufUnix'
+	'/usr/local/include/IBKR/TwsSocketClient/',
+	'/usr/local/include/IBKR/TwsSocketClient/protobufUnix/'
 )
 
 # ********************
@@ -101,7 +99,10 @@ BINARY_SXMM = executable(
 
 	dependencies: dependencies,
 	
-	include_directories: search_inc
+	include_directories: inc,
+
+	build_rpath: '$ORIGIN/lib',
+	install_rpath: '$ORIGIN/lib'
 )
 
 # ***********************
@@ -109,11 +110,11 @@ BINARY_SXMM = executable(
 # ***********************
 
 install_headers(
-	'include/pzh/sxmm/Client.hpp',
-	'include/pzh/sxmm/Report.h',
-	'include/pzh/sxmm/Order.h',
-	'include/pzh/sxmm/Risk.h',
 	'include/pzh/sxmm.hpp',
+	'include/pzh/sxmm/Risk.hpp',
+	'include/pzh/sxmm/Order.hpp',
+	'include/pzh/sxmm/Report.hpp',
+	'include/pzh/sxmm/Client.hpp',
 
 	install_dir: 'libsxmm-dev/usr/include/pzh/sxmm'
 )

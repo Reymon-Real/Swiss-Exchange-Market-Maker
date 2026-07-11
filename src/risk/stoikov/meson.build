@@ -6,7 +6,7 @@
 # ********************************
 
 SOURCE_FILES_RISK_STOIKOV = files(
-	'ask_size.c',
-	'bid_size.c',
-	'volatility.c'
+	'ask_size.cpp',
+	'bid_size.cpp',
+	'volatility.cpp'
 )

@@ -6,6 +6,6 @@
 # ********************************
 
 SOURCE_FILES_RISK_MICROPRICE = files(
-	'gamma.c',
-	'kappa.c'
+	'gamma.cpp',
+	'kappa.cpp'
 )

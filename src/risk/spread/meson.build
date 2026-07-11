@@ -6,6 +6,6 @@
 # ********************************
 
 SOURCE_FILES_RISK_SPREAD = files(
-	'spread_max.c',
-	'spread_min.c'
+	'spread_max.cpp',
+	'spread_min.cpp'
 )
