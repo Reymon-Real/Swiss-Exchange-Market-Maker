@@ -5,7 +5,13 @@
 build/
 build_*
 
-ibkr
+ibkr/
+sxmm-bin/
 
-subprojects
-libsxmm-dev
+subprojects/
+
+# ********************
+# *** Ignore Files ***
+# ********************
+
+*.json

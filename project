@@ -1,0 +1,92 @@
+#!/bin/bash
+# *******************************
+# *** Autor: Reymon Dev       ***
+# *** Datum: 25. Juli. 2026   ***
+# *** Aktua: 25. Juli, 2026   ***
+# *** Lizenz: AGPL-3-or-later ***
+# *******************************
+
+# ************************
+# *** Select Operation ***
+# ************************
+
+for VARS in $1; do
+
+	case $VARS in
+
+		--setup)
+			OPERATION=setup
+			shift
+			;;
+
+		--compile)
+			OPERATION=compile
+			shift
+			;;
+
+		--package)
+			OPERATION=package
+			shift
+			;;
+
+		*)
+			echo "Select Operation"
+			exit 0
+			;;
+	esac
+
+done
+
+# *******************
+# *** Select Arch ***
+# *******************
+
+for VARS in $1; do
+
+	case $VARS in
+
+		--x86_64)
+			ARCH=--x86_64
+			shift
+			;;
+
+		--aarch64)
+			ARCH=--aarch64
+			shift
+			;;
+
+		*)
+			echo "Invalid architecture"
+			echo "Supported architectures"
+			echo "--x86_64"
+			echo "--arch64"
+			exit 0
+			;;
+	
+	esac
+
+done
+
+# ************************
+# *** Execut Operation ***
+# ************************
+
+case $OPERATION in
+
+	setup)
+		./script/setup.sh $ARCH $@
+		;;
+
+	compile)
+		./script/compile.sh $ARCH $@
+		;;
+
+	package)
+		./script/package.sh $ARCH $@
+		;;
+
+	*)
+		exit 0
+		;;
+
+esac
